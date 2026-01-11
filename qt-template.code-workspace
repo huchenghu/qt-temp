@@ -1,0 +1,86 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "extensions": {
+    "recommendations": [
+      "llvm-vs-code-extensions.lldb-dap",
+      "llvm-vs-code-extensions.vscode-clangd",
+      "ms-vscode.cmake-tools",
+      "ms-vscode.cpptools-extension-pack"
+    ]
+  },
+  "settings": {
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "clangd.arguments": [
+      "--header-insertion=never"
+    ],
+    "cmake.allowUnsupportedPresetsVersions": false,
+    "cmake.automaticReconfigure": false,
+    "cmake.configureOnEdit": false,
+    "cmake.configureOnOpen": false,
+    "cmake.exportCompileCommandsFile": true,
+    "cmake.options.statusBarVisibility": "hidden"
+  },
+  "launch": {
+    "configurations": [
+      {
+        "name": "lldb launch",
+        "type": "lldb-dap",
+        "request": "launch",
+        "program": "${command:cmake.launchTargetPath}",
+        "args": [],
+        "cwd": "${workspaceFolder}"
+      },
+      {
+        "name": "lldb attach",
+        "type": "lldb-dap",
+        "request": "attach",
+        "program": "${command:cmake.launchTargetPath}"
+      },
+      {
+        "name": "gdb launch",
+        "type": "cppdbg",
+        "MIMode": "gdb",
+        "miDebuggerPath": "gdb",
+        "request": "launch",
+        "program": "${command:cmake.launchTargetPath}",
+        "args": [],
+        "cwd": "${workspaceFolder}",
+        "externalConsole": false,
+        "stopAtEntry": false,
+        "environment": [
+          {
+            "name": "PATH",
+            "value": "${env:PATH}:${command:cmake.getLaunchTargetDirectory}"
+          }
+        ],
+        "setupCommands": [
+          {
+            "description": "enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          }
+        ]
+      },
+      {
+        "name": "msvc launch",
+        "type": "cppvsdbg",
+        "request": "launch",
+        "program": "${command:cmake.launchTargetPath}",
+        "args": [],
+        "cwd": "${workspaceFolder}",
+        "externalConsole": false,
+        "stopAtEntry": false,
+        "environment": [
+          {
+            "name": "PATH",
+            "value": "${env:PATH}:${command:cmake.getLaunchTargetDirectory}"
+          }
+        ],
+      }
+    ]
+  }
+}

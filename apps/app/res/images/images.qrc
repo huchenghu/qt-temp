@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="/images">
+    <file alias="pandas-waving">pandas-waving.jpg</file>
+  </qresource>
+</RCC>

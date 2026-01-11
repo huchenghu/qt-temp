@@ -1,0 +1,44 @@
+# .clang-format based on LLVM style
+
+BasedOnStyle: LLVM
+
+# [align]
+AlignAfterOpenBracket: Align
+AlignArrayOfStructures: Left
+AlignEscapedNewlines: Left
+AlignOperands: AlignAfterOperator
+
+# [line]
+AllowAllArgumentsOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: true
+AllowBreakBeforeNoexceptSpecifier: Always
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLambdasOnASingleLine: None
+InsertNewlineAtEOF: true
+MaxEmptyLinesToKeep: 1
+
+# [pack]
+BinPackArguments: false
+BinPackParameters: false
+PackConstructorInitializers: Never
+
+# [break]
+BreakBeforeBraces: Allman
+BreakBeforeConceptDeclarations: Always
+BreakBeforeTernaryOperators: true
+BreakInheritanceList: BeforeComma
+BreakStringLiterals: true
+InsertBraces: true
+
+# [column]
+ColumnLimit: 80
+
+# [indent]
+IndentWidth: 2
+TabWidth: 2
+UseTab: Never
+# [custom]
