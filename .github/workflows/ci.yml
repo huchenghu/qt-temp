@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+env:
+  BUILD_TYPE: Debug
+
+jobs:
+  format-check:
+    runs-on: ubuntu-latest
+    outputs:
+      is-formatted: ${{ steps.check.outputs.is-formatted }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install clang-format
+        run: sudo apt-get install -y clang-format
+
+      - name: Check formatting
+        id: check
+        run: |
+          if ! find . -name "*.cpp" -o -name "*.h" | grep -v build | grep -v ".git" | xargs clang-format --dry-run --Werror; then
+            echo "is-formatted=false" >> $GITHUB_OUTPUT
+            echo "❌ Code formatting failed. Run clang-format to fix:"
+            find . -name "*.cpp" -o -name "*.h" | grep -v build | grep -v ".git" | xargs clang-format -i
+            echo "✅ Code has been formatted. Please commit the changes."
+            exit 1
+          else
+            echo "is-formatted=true" >> $GITHUB_OUTPUT
+            echo "✅ Code is properly formatted"
+          fi
+
+  build:
+    runs-on: ubuntu-latest
+    needs: format-check
+    if: needs.format-check.outputs.is-formatted == 'true'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Qt6
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qt6-base-dev qt6-base-dev-tools qt6-tools-dev-tools ninja-build clang
+
+      - name: Run workflow
+        run: cmake --workflow --preset debug
+        env:
+          QT_QPA_PLATFORM: offscreen
+
+  lint:
+    runs-on: ubuntu-latest
+    needs: format-check
+    if: needs.format-check.outputs.is-formatted == 'true'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Qt6 and clang-tidy
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qt6-base-dev qt6-base-dev-tools ninja-build clang clang-tidy
+
+      - name: Configure CMake
+        run: cmake --preset debug
+
+      - name: Run clang-tidy
+        run: |
+          find libs apps -name "*.cpp" | head -5 | xargs -I{} clang-tidy -p build/debug {}
+        continue-on-error: true

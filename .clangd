@@ -1,0 +1,51 @@
+CompileFlags:
+  Compiler: clang++
+  CompilationDatabase: ./build/debug
+  Add: [-std=c++17, -I., -g, -O0, -Wall]
+  Remove: []
+Completion:
+  AllScopes: Yes
+Diagnostics:
+  ClangTidy:
+    Add: [
+      abseil-*,
+      #altera-*,
+      #android-*,
+      boost-*,
+      bugprone-*,
+      cert-*,
+      clang-analyzer-*,
+      concurrency-*,
+      cppcoreguidelines-*,
+      #darwin-*,
+      #fuchsia-*,
+      google-*,
+      hicpp-*,
+      linuxkernel-*,
+      llvm-*,
+      #llvmlibc-*,
+      misc-*,
+      #modernize-*,
+      #mpi-*,
+      #objc-*,
+      #openmp-*,
+      performance-*,
+      portability-*,
+      readability-*,
+      #zircon-*
+      ]
+    Remove: []
+  UnusedIncludes: Strict
+  MissingIncludes: Strict
+Hover:
+  ShowAKA: Yes
+Index:
+  Background: Build
+  StandardLibrary: Yes
+InlayHints:
+  Enabled: Yes
+  BlockEnd: Yes
+  DeducedTypes: Yes
+  Designators: Yes
+  ParameterNames: Yes
+  TypeNameLimit: 24

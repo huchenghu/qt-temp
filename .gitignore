@@ -1,0 +1,48 @@
+# [default]
+.*
+#/*
+!.git*
+!/README.md
+
+# [clang]
+!/.clang-format
+!/.clang-tidy
+!/.clangd
+
+# [cmake]
+!/CMakeLists.txt
+!/CMakePresets.json
+CMakeLists.txt.user
+CMakeUserPresets.json
+
+# [dirs]
+!/apps
+!/cmake
+!/docs
+!/examples
+!/include
+!/libs
+!/modules
+!/platforms
+!/scripts
+!/src
+!/tests
+!/tools
+/build
+/builds
+/install
+
+# [files]
+!/*.code-workspace
+!/*.sh
+/*.zip
+/log
+/logs
+
+# [vcpkg]
+!/vcpkg-configuration.json
+!/vcpkg.json
+vcpkg
+vcpkg_installed
+
+# [custom]
